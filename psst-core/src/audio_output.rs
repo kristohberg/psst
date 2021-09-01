@@ -1,7 +1,9 @@
 use std::sync::{Arc, Mutex};
 
 use crossbeam_channel::{unbounded, Receiver, Sender};
-use miniaudio::{Context, Device, DeviceConfig, DeviceType, Format};
+use miniaudio::{
+    Context, Device, DeviceConfig, DeviceType, Format, PerformanceProfile, ResampleAlgorithm,
+};
 
 use crate::error::Error;
 
@@ -81,6 +83,12 @@ impl AudioOutput {
             config.playback_mut().set_format(Format::F32);
             config.playback_mut().set_channels(source.channels().into());
             config.set_sample_rate(source.sample_rate());
+
+            // Enable the Speex re-sampling, with the highest quality.
+            config.set_resampling(ResampleAlgorithm::Speex { quality: 10 });
+
+            // Set the conservative performance profile (the default is low-latency).
+            config.set_performance_profile(PerformanceProfile::Conservative);
         };
 
         // Move the source into the config's data callback.  Callback will get cloned
