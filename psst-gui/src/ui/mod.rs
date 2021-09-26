@@ -4,7 +4,7 @@ use druid::{
     im::Vector,
     lens::Unit,
     widget::{CrossAxisAlignment, Either, Flex, Label, Scroll, Slider, Split, ViewSwitcher},
-    Env, Insets, LensExt, Menu, MenuItem, Selector, Widget, WidgetExt, WindowDesc,
+    Env, Insets, LensExt, Menu, MenuItem, Selector, UnitPoint, Widget, WidgetExt, WindowDesc,
 };
 
 use crate::{
@@ -191,10 +191,10 @@ fn route_widget() -> impl Widget<AppState> {
 
 fn sidebar_logo_widget() -> impl Widget<AppState> {
     icons::LOGO
-        .scale((29.0, 32.0))
-        .with_color(theme::GREY_500)
-        .padding((0.0, theme::grid(2.0), 0.0, theme::grid(1.0)))
+        .scale((10.0, 10.0))
+        .padding((0.0, theme::grid(5.0), 0.0, theme::grid(5.0)))
         .center()
+        .align_horizontal(UnitPoint::CENTER)
         .lens(Unit)
 }
 

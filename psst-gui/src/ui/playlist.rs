@@ -19,6 +19,7 @@ use super::{
 pub const LOAD_DETAIL: Selector<PlaylistLink> = Selector::new("app.playlist.load-detail");
 
 pub fn list_widget() -> impl Widget<AppState> {
+    log::info!("playlist name: {:?}", Playlist::name);
     Async::new(
         spinner_widget,
         || {
