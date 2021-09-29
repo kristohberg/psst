@@ -127,8 +127,12 @@ fn general_tab_widget() -> impl Widget<AppState> {
         .with_child(Label::new("Theme").with_font(theme::UI_FONT_MEDIUM))
         .with_spacer(theme::grid(2.0))
         .with_child(
-            RadioGroup::new(vec![("Light", Theme::Light), ("Dark", Theme::Dark)])
-                .lens(AppState::config.then(Config::theme)),
+            RadioGroup::new(vec![
+                ("Light", Theme::Light),
+                ("Dark", Theme::Dark),
+                ("Solana", Theme::Solana),
+            ])
+            .lens(AppState::config.then(Config::theme)),
         );
 
     col = col.with_spacer(theme::grid(3.0));

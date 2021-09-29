@@ -101,6 +101,7 @@ fn root_widget() -> impl Widget<AppState> {
     let playlists = Scroll::new(playlist::list_widget())
         .vertical()
         .expand_height();
+
     let sidebar = Flex::column()
         .must_fill_main_axis(true)
         .with_child(sidebar_logo_widget())
@@ -122,6 +123,7 @@ fn root_widget() -> impl Widget<AppState> {
         .must_fill_main_axis(true)
         .with_child(topbar_back_button_widget())
         .with_child(topbar_title_widget())
+        .with_child(search::search_box())
         .background(Border::Bottom.with_color(theme::BACKGROUND_DARK));
 
     let main = Flex::column()
@@ -204,7 +206,6 @@ fn sidebar_menu_widget() -> impl Widget<AppState> {
         .with_child(sidebar_link_widget("Home", Nav::Home))
         .with_child(sidebar_link_widget("Tracks", Nav::SavedTracks))
         .with_child(sidebar_link_widget("Albums", Nav::SavedAlbums))
-        .with_child(search::input_widget().padding((theme::grid(1.0), theme::grid(1.0))))
 }
 
 fn sidebar_link_widget(title: &str, nav: Nav) -> impl Widget<AppState> {

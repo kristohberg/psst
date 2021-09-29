@@ -29,11 +29,19 @@ pub fn input_widget() -> impl Widget<AppState> {
     TextBox::new()
         .with_placeholder("Search")
         .controller(InputController::new().on_submit(|ctx, query, _| {
+            if query.is_empty() {
+                return;
+            }
             ctx.submit_command(cmd::NAVIGATE.with(Nav::SearchResults(query.clone().into())));
         }))
         .with_id(cmd::WIDGET_SEARCH_INPUT)
-        .expand_width()
         .lens(AppState::search.then(Search::input))
+}
+
+pub fn search_box() -> impl Widget<AppState> {
+    Flex::row()
+        .with_default_spacer()
+        .with_child(input_widget().padding((theme::grid(1.0), theme::grid(1.0))))
 }
 
 pub fn results_widget() -> impl Widget<AppState> {
